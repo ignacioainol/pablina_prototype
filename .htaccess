@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^log-out$ res/php/user_actions/log-out.php [QSA]
+
+#Rutas Administradores
+RewriteRule ^admin/posts$ admin/index.php?section=posts [QSA]
+RewriteRule ^admin/categories$ admin/index.php?section=categories [QSA]
+
+#Rutas Usuarios
+RewriteRule ^post/([0-9]+)$ index.php?section=post&post_id=$1 [QSA]
