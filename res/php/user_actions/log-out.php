@@ -3,4 +3,4 @@
 session_start();
 session_destroy();
 
-header('Location: http://localhost/cms_avanzado/');
+header('Location: http://localhost/pablina_propiedades/');

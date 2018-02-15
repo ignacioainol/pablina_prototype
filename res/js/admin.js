@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var root = "http://localhost/cms_avanzado/";
+	var root = "http://localhost/pablina_propiedades/";
 
 	try{
 		 CKEDITOR.replace('txtDescription');
@@ -19,7 +19,7 @@ $(document).ready(function(){
 			},
 			success: function(data){
 				if(data == "true"){
-					window.location.href = "http://localhost/cms_avanzado";
+					window.location.href = "http://localhost/pablina_propiedades";
 				}else if(data == "false"){
 					alert("Sus credenciales no son validas");
 				}
@@ -88,9 +88,10 @@ $(document).ready(function(){
 		
 		var description = CKEDITOR.instances.txtDescription.getData(),
 			name = $(".txtNamePost").val().trim(),
-			category_id = $(".txtCategoryPost").val().trim();
+			category_id = $(".txtCategoryPost").val().trim(),
+			city_id = $(".txtCityPost").val().trim();
 
-			if(description !== "" && name !== "" && category_id > 0){
+			if(description !== "" && name !== "" && category_id > 0 && city_id > 0){
 				var formData = new FormData($("#new_posts_container")[0]);
 				formData.append("description", description);
 
@@ -119,6 +120,7 @@ $(document).ready(function(){
 						$(".txtNamePost, .image_file").val("");
 						CKEDITOR.instances['txtDescription'].setData("");
 						alert("Publicacion creada");
+						console.log(city_id);
 					},
 					error: function(){
 						alert("Error");

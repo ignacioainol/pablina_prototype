@@ -14,6 +14,15 @@
 		</select>
 	</div>
 
+	<div class="field">
+		<select class="txtCityPost" name="txtCityPost">
+			<option value="0">Seleccionar Ciudad</option>
+			<? foreach($cities as $city): ?>
+				<option value="<?= $city['city_id'] ?>"><?= $city['city'] ?></option>
+			<? endforeach; ?>
+		</select>
+	</div>
+
 	<p><b>Selecciona Una Imagen</b></p>
 	<div class="ui input">
 		<input type="file" class="image_file" name="image_file">

@@ -73,6 +73,17 @@ class Admin_Actions{
 		return $categories;
 	}
 
+	public function getCities(){
+		global $database;
+
+		$cities = $database->select("cities",[
+			"city_id",
+			"city"
+		]);
+
+		return  $cities;
+	}
+
 	public function getProfile($email){
 		global $database;
 
@@ -85,6 +96,19 @@ class Admin_Actions{
 
 		return $admin;
 	}
+
+	// public function getCity($city){
+	// 	global $database;
+
+	// 	$city = $database->select("cities",[
+	// 		"city_id",
+	// 		"city"
+	// 	],[
+	// 		"city" => $city
+	// 	]);
+
+	// 	return $city;
+	// }
 
 	public function saveCategory($category){
 		global $database;
@@ -106,7 +130,7 @@ class Admin_Actions{
 		return $delete->rowCount();
 	}
 
-	public function savePost($name,$category_id,$description,$name_img,$admin_id){
+	public function savePost($name,$category_id, $city_id, $description,$name_img,$admin_id){
 		global $database;
 
 		$database->insert("posts",[
@@ -114,6 +138,7 @@ class Admin_Actions{
 			"body" => $description,
 			"img_post" => $name_img,
 			"category_id" => htmlentities($category_id),
+			"city_id" => $city_id,
 			"admin_id" => $admin_id,
 			"create_at" => time()
 		]);

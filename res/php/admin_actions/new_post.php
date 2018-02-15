@@ -8,7 +8,8 @@ $name_img = uniqid();
 // Obtener el perfil del admin que esta creando el post
 $profile = $obj->getProfile($_SESSION['admin']);
 
-$save = $obj->savePost($_POST['txtNamePost'],$_POST['txtCategoryPost'], $_POST['description'], $name_img, $profile[0]['admin_id']);
+
+$save = $obj->savePost($_POST['txtNamePost'],$_POST['txtCategoryPost'],$_POST['txtCityPost'], $_POST['description'], $name_img, $profile[0]['admin_id']);
 
 
 	move_uploaded_file($_FILES['image_file']['tmp_name'], "../../img/post_images/" . $name_img . ".png");

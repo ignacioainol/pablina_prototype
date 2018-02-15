@@ -8,6 +8,11 @@ if(isset($_SESSION['admin']) && isset($_GET['section']) && $_GET['section'] == "
 	$categories = $admin->getCategories();
 }
 
+if(isset($_SESSION['admin']) && isset($_GET['section']) && $_GET['section'] == "posts"){
+	//Obtener Categorias
+	$cities = $admin->getCities();
+}
+
 if(isset($_SESSION['admin']) && isset($_GET['section']) && $_GET['section'] == "categories"){
 	//Obtener Categorias
 	$categories = $admin->getCategories();

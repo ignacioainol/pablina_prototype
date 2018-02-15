@@ -7,7 +7,7 @@ try {
 	$database = new Medoo([
 		// required
 		'database_type' => 'mysql',
-		'database_name' => 'new_cms',
+		'database_name' => 'pablina_database',
 		'server' => 'localhost',
 		'username' => 'root',
 		'password' => 'root',
