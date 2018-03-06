@@ -7,16 +7,37 @@ class User_Actions{
 		global $database;
 
 		$posts = $database->select("posts",[
-			"post_id",
-			"name",
-			"img_post",
-			"create_at"
+			"[>]categories" => ["category_id" => "category_id"],
+			"[>]types" => ["type_id" => "type_id"],
+			"[>]communes" => ["commune_id" => "commune_id"]
+		],[
+			"posts.post_id",
+			"posts.name",
+			//"posts.img_post",
+			"posts.image_name",
+			"posts.create_at",
+			"categories.category",
+			"types.type",
+			"posts.price",
+			"communes.commune",
+			"posts.image_name"
 		],[
 			"ORDER" => ["posts.post_id" => "DESC"],
-			"LIMIT" => 8
+			"LIMIT" => 15
 		]);
 
 		return $posts;
+	}
+
+	public function getTypes(){
+		global $database;
+
+		$types = $database->select("types",[
+			"type_id",
+			"type"
+		]);
+
+		return $types;
 	}
 
 	public function getPostInfo($post_id){
@@ -24,14 +45,32 @@ class User_Actions{
 
 		$posts = $database->select("posts",[
 			"[>]categories" => ["category_id" => "category_id"],
-			"[>]admins" => ["admin_id" => "admin_id"]
+			"[>]communes" => ["commune_id" => "commune_id"],
+			"[>]admins" => ["admin_id" => "admin_id"],
+			"[>]cities" => ["city_id" => "city_id"],
+			"[>]types" => ["type_id" => "type_id"],
+			"[>]gallery" => ["gallery_id" => "gallery_id"]
 		], [
 			"posts.name",
-			"posts.img_post",
-			"posts.body",
-			"posts.create_at",
+			"posts.image_name",
 			"categories.category",
-			"admins.username"
+			"communes.commune",
+			"cities.city",
+			"types.type",
+			"posts.body",
+			"posts.bedroom",
+			"posts.bathroom",
+			"posts.parking",
+			"posts.price",
+			"posts.create_at",
+			"posts.image_name",
+			"categories.category",
+			"admins.username",
+			"admins.email",
+			"admins.phone",
+			"gallery.name_img",
+			"admins.firstname",
+			"admins.lastname"
 		],[
 			"posts.post_id" => $post_id
 		]);
@@ -84,6 +123,28 @@ class Admin_Actions{
 		return  $cities;
 	}
 
+	public function getTypes(){
+		global $database;
+
+		$types = $database->select("types",[
+			"type_id",
+			"type"
+		]);
+
+		return  $types;
+	}
+
+	public function getCommunes(){
+		global $database;
+
+		$communes = $database->select("communes",[
+			"commune_id",
+			"commune"
+		]);
+
+		return  $communes;
+	}
+
 	public function getProfile($email){
 		global $database;
 
@@ -130,18 +191,64 @@ class Admin_Actions{
 		return $delete->rowCount();
 	}
 
-	public function savePost($name,$category_id, $city_id, $description,$name_img,$admin_id){
+	public function savePost($name,$price,$ufs,$category_id, $type_id, $city_id, $description,$gallery_id,$image_name,$admin_id,$bathroom, $bedroom,$parking,$commune_id){
 		global $database;
 
 		$database->insert("posts",[
 			"name" => htmlentities($name),
 			"body" => $description,
-			"img_post" => $name_img,
+			"gallery_id" => $gallery_id,
+			"image_name" =>$image_name,
 			"category_id" => htmlentities($category_id),
+			"type_id" => $type_id,
 			"city_id" => $city_id,
 			"admin_id" => $admin_id,
-			"create_at" => time()
+			"ufs"	=> $ufs,
+			"price"	=> $price,
+			"create_at" => time(),
+			"bathroom" => $bathroom,
+			"bedroom" => $bedroom,
+			"parking" => $parking,
+			"commune_id" => $commune_id
 		]);
+
+	}
+
+	// 
+	public function getPosts(){
+		global $database;
+
+		$posts = $database->select("posts",[
+			"[>]categories" => ["category_id" => "category_id"],
+			"[>]types" => ["type_id" => "type_id"],
+			"[>]communes" => ["commune_id" => "commune_id"]
+		],[
+			"posts.post_id",
+			"posts.name",
+			//"posts.img_post",
+			"posts.image_name",
+			"posts.create_at",
+			"categories.category",
+			"types.type",
+			"posts.price",
+			"communes.commune",
+			"posts.image_name"
+		],[
+			"ORDER" => ["posts.post_id" => "DESC"],
+			"LIMIT" => 12
+		]);
+
+		return $posts;
+
+	}
+
+	public function saveImage($gallery_id,$name_img){
+		global $database;
+
+		$database->insert("gallery",[
+	    	"gallery_id" => $gallery_id,
+	    	"name_img" => $name_img
+	    ]);
 	}
 
 }

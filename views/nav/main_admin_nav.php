@@ -7,7 +7,7 @@
   </a>
   <div class="right menu">
     <div class="item">
-        <a href="http://localhost/pablina_pripiedades/log-out">
+        <a href="http://localhost/pablina_propiedades/log-out">
           Log Out
         </a>
     </div>

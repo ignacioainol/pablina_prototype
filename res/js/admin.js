@@ -83,15 +83,34 @@ $(document).ready(function(){
 		});
 	});
 
+	$(".txtCityPost").on("change",function(){
+		var region = $(".txtCityPost").val().trim();
+		if(region == 8){
+			console.log("Biobio Region");
+			$("#containerCommune").show();
+
+		}else{
+			console.log("No Biobio");
+		}
+	})
+
 	$(".btnSavePost").on("click",function(e){
 		e.preventDefault();
 		
 		var description = CKEDITOR.instances.txtDescription.getData(),
 			name = $(".txtNamePost").val().trim(),
+			price = $(".txtPricePost").val().trim(),
+			ufs = $(".txtPricePost").val().trim(),
 			category_id = $(".txtCategoryPost").val().trim(),
-			city_id = $(".txtCityPost").val().trim();
+			type_id = $(".txtPropertyPost").val().trim(),
+			city_id = $(".txtCityPost").val().trim(),
+			bathroom = $("#txtBathroomPost").val().trim(),
+			bedroom = $("#txtBedroomPost").val().trim(),
+			commune_id = $(".txtCommunePost").val().trim();
 
-			if(description !== "" && name !== "" && category_id > 0 && city_id > 0){
+			if(description !== "" && name !== "" && price !== "" 
+				&& ufs !== "" && category_id > 0 && type_id > 0
+				 && city_id > 0 && commune_id > 0 && bathroom > 0 && bedroom > 0){
 				var formData = new FormData($("#new_posts_container")[0]);
 				formData.append("description", description);
 
@@ -120,14 +139,24 @@ $(document).ready(function(){
 						$(".txtNamePost, .image_file").val("");
 						CKEDITOR.instances['txtDescription'].setData("");
 						alert("Publicacion creada");
-						console.log(city_id);
 					},
-					error: function(){
-						alert("Error");
-					}
+					error: function(ts) { console.log(ts.responseText) }
 				});
 			}else{
 				alert("Complete todos los campos");
 			}
-	})
-})
+	});
+});
+
+function format(input){
+    var num = input.value.replace(/\./g,'');
+    if(!isNaN(num)){
+    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+    num = num.split('').reverse().join('').replace(/^[\.]/,'');
+    input.value = num;
+    }
+     
+    else{ alert('Solo se permiten numeros');
+    input.value = input.value.replace(/[^\d\.]*/g,'');
+    }
+}
